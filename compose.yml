@@ -1,0 +1,44 @@
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: sravanam
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: sravanam
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U sravanam -d sravanam"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    ports:
+      - "127.0.0.1:5433:5432"
+    networks: [sravanam]
+
+  api:
+    build: ./api
+    restart: unless-stopped
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8110 --reload
+    environment:
+      DATABASE_URL: postgresql+psycopg://sravanam:${DB_PASSWORD}@db:5432/sravanam
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_EXPIRE_MINUTES: ${JWT_EXPIRE_MINUTES:-10080}
+      MEDIA_ROOT: /media
+    volumes:
+      - /home/Bunny/pravachanam:/media:ro
+      - ./api:/app
+      - ./web:/app/web
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8110:8110"
+    networks: [sravanam]
+
+networks:
+  sravanam: {}
+
+volumes:
+  db_data: {}

@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Sravanam — Telugu Pravachanam</title>
+<link rel="stylesheet" href="/style.css?v=2" />
+</head>
+<body>
+
+  <!-- ============ LOGIN ============ -->
+  <div id="loginScreen" class="login-screen">
+    <div class="login-card">
+      <div class="om">ॐ</div>
+      <h1>Sravanam</h1>
+      <p class="tagline">శ్రవణం — free, ad-free sessions of Telugu pravachanam</p>
+      <div class="tabs">
+        <button id="tabLogin" class="tab active">Sign in</button>
+        <button id="tabRegister" class="tab">Create account</button>
+      </div>
+      <form id="loginForm" class="login-form">
+        <input id="fieldName" type="text" placeholder="Name (new accounts)" class="field-name" hidden />
+        <input id="fieldEmail" type="email" placeholder="Email" required />
+        <input id="fieldPassword" type="password" placeholder="Password" required />
+        <button type="submit" class="btn primary">Continue</button>
+      </form>
+      <p class="note">Everything on Sravanam is free to listen. A voluntary ₹10/mo sustainer pass keeps the server alive — it never gates what you can hear.</p>
+      <p class="source-note">Audio originates from publicly available YouTube pravachanam; source links stay open.</p>
+    </div>
+  </div>
+
+  <!-- ============ APP ============ -->
+  <div id="app" class="layout" hidden>
+    <aside class="sidebar">
+      <div class="brand"><span class="brand-mark">ॐ</span><span>Sravanam</span></div>
+      <div class="search"><input id="searchInput" placeholder="Search discourses…" /></div>
+      <nav class="nav">
+        <button class="nav-item active" data-view="home">⌂ Home</button>
+        <button class="nav-item" data-view="browse">⧉ Browse library</button>
+        <button class="nav-item" data-view="requests">✎ Requests</button>
+        <button class="nav-item" id="adminNavBtn" data-view="admin" hidden>🛆 Admin</button>
+      </nav>
+      <div class="sidebar-foot">
+        <div class="user-chip">
+          <span class="avatar" id="userAvatar">?</span>
+          <span class="user-meta"><span id="userName">&nbsp;</span><span id="userEmail" class="sub">&nbsp;</span></span>
+        </div>
+        <button class="btn ghost" id="logoutBtn">Sign out</button>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <h2 id="screenTitle">Home</h2>
+        <span id="screenSub" class="sub"></span>
+      </header>
+      <div id="content"></div>
+    </main>
+  </div>
+
+  <!-- ============ PLAYER ============ -->
+  <div id="player" class="player" hidden>
+    <div class="now">
+      <div id="nowTitle" class="now-title">Play a discourse</div>
+      <div id="nowSeries" class="now-series"></div>
+    </div>
+    <audio id="audio" controls preload="metadata"></audio>
+    <div class="player-actions">
+      <a id="dlLink" class="btn ghost" download>Download</a>
+    </div>
+  </div>
+
+<script src="/app.js?v=2"></script>
+</body>
+</html>
